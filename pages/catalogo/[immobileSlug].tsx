@@ -37,7 +37,7 @@ const Catalogo: NextPage = ({ data = {} }: any) => {
                 <BackgroundCape
                     height={1000 / 2}
                     width={1500 / 2}
-                    backgroundUrl={`${hostname}${immobileData.attributes.Gallery[0].Cape.data[0].attributes.url}`}
+                    backgroundUrl={`${immobileData.attributes.Gallery[0].Cape.data[0].attributes.url}`}
                 />
             )}
 

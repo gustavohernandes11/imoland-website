@@ -8,7 +8,7 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 interface ImmobileModalType {
-    src: string | StaticImageData;
+    src: any;
     alt: string;
     name?: string;
     category?: string;

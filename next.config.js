@@ -7,8 +7,14 @@ const nextConfig = {
     },
     trailingSlash: true,
     images: {
-    unoptimized: true,
-        domains: ["res.cloudinary.com", "github.com", "br.freepik.com", "localhost", "imolandserver.herokuapp.com"],
+        unoptimized: true,
+        domains: [
+            "res.cloudinary.com",
+            "github.com",
+            "br.freepik.com",
+            "localhost",
+            "imolandserver.herokuapp.com",
+        ],
     },
 };
 
