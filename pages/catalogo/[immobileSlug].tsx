@@ -117,6 +117,7 @@ const Catalogo: NextPage = ({ data = {} }: any) => {
                         <Heading as="h2">Galeria</Heading>
                         <Grid xs={12} mt={3} mb={3}>
                             <Carousel
+                            height={`50vh`}
                                 navButtonsAlwaysVisible={true}
                                 stopAutoPlayOnHover={true}
                                 duration={200}
@@ -135,7 +136,7 @@ const Catalogo: NextPage = ({ data = {} }: any) => {
                                             justifyContent="center"
                                         >
                                             <Image
-                                                src={`${hostname}${e.attributes.url}`}
+                                                src={`${e.attributes.url}`}
                                                 alt="Imagem da galeria"
                                                 height={e.attributes.height}
                                                 width={e.attributes.width}
