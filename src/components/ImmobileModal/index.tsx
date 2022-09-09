@@ -2,9 +2,10 @@ import * as Styled from "./styles";
 import { Button, Grid, Typography, Stack, Chip } from "@mui/material";
 import { DirectionsCar, KingBed, Bathtub } from "@styled-icons/material";
 import { ArrowsExpand } from "@styled-icons/heroicons-outline";
+import Logo from '../../assets/imgs/logotipo_imoland.png'
 
 import { Heading } from "../Heading";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 interface ImmobileModalType {
@@ -31,7 +32,7 @@ export const ModalWrapper = ({ children }: any) => {
 };
 
 export const ImmobileModal = ({
-    src,
+    src = Logo,
     alt,
     name = "-",
     category = "-",

@@ -8,20 +8,14 @@ import {
     Typography,
 } from "@mui/material";
 
-export const SearchBox = ({ businessType, immobileType }: any) => {
+export const SearchBox = ({ businessType, immobileType, county, district }: any) => {
     const [, actions] = useGlobalContext();
-    const initialFilters = {
-        filter_businessType: null,
-        filter_immobileType: null,
-        filter_county: null,
-        filter_district: null,
-    };
 
     const options = {
         businessType: businessType,
         immobileType: immobileType,
-        county: [],
-        district: [],
+        county: county,
+        district: district
     };
     return (
         <Styled.Container>
@@ -80,7 +74,6 @@ export const SearchBox = ({ businessType, immobileType }: any) => {
                                 )
                             }
                             id="search-form-concelho"
-                            disabled={!!options.county}
                             options={options.county}
                             sx={{ flex: 1 }}
                             renderInput={(params) => (
@@ -95,7 +88,6 @@ export const SearchBox = ({ businessType, immobileType }: any) => {
                                 )
                             }
                             id="search-form-distrito"
-                            disabled={!!options.district}
                             options={options.district}
                             sx={{ flex: 1 }}
                             renderInput={(params) => (

@@ -6,7 +6,6 @@ export interface SectionType {
     children?: React.ReactNode;
     full?: boolean;
     height?: string | number;
-    backgroundUrl?: string;
     className?: string;
     color?: string;
     id?: string;
@@ -17,7 +16,6 @@ export const Section = ({
     full,
     className,
     justifyContent,
-    backgroundUrl,
     height,
     color,
     alignItems,
@@ -27,7 +25,6 @@ export const Section = ({
         justifyContent: justifyContent,
         alignItems: alignItems,
         height: height,
-        backgroundUrl: backgroundUrl,
         id: id,
         className: className,
     };

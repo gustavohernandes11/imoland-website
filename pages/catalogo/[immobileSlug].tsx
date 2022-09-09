@@ -33,11 +33,12 @@ const Catalogo: NextPage = ({ data = {} }: any) => {
     return (
         <>
             <Header />
-            {immobileData.attributes.Gallery[0].Cape.data[0].attributes.url && (
+            {immobileData?.attributes?.Gallery[0]?.Cape?.data[0]?.attributes
+                ?.url && (
                 <BackgroundCape
                     height={1000 / 2}
                     width={1500 / 2}
-                    backgroundUrl={`${immobileData.attributes.Gallery[0].Cape.data[0].attributes.url}`}
+                    backgroundUrl={`${immobileData?.attributes?.Gallery[0]?.Cape?.data[0]?.attributes?.url}`}
                 />
             )}
 
@@ -114,39 +115,47 @@ const Catalogo: NextPage = ({ data = {} }: any) => {
                         <Typography>
                             {immobileData.attributes.Immobile_post.Description}
                         </Typography>
-                        <Heading as="h2">Galeria</Heading>
-                        <Grid xs={12} mt={3} mb={3}>
-                            <Carousel
-                            height={`50vh`}
-                                navButtonsAlwaysVisible={true}
-                                stopAutoPlayOnHover={true}
-                                duration={200}
-                            >
-                                {immobileData.attributes.Gallery[0].Image.data.map(
-                                    (
-                                        e: any,
-                                        i: React.Key | null | undefined
-                                    ) => (
-                                        <Grid
-                                            className="carousel"
-                                            key={i}
-                                            xs={12}
-                                            container
-                                            alignItems="center"
-                                            justifyContent="center"
-                                        >
-                                            <Image
-                                                src={`${e.attributes.url}`}
-                                                alt="Imagem da galeria"
-                                                height={e.attributes.height}
-                                                width={e.attributes.width}
-                                                layout="intrinsic"
-                                            />
-                                        </Grid>
-                                    )
-                                )}
-                            </Carousel>
-                        </Grid>
+                        {immobileData?.attributes?.Gallery[0]?.Image?.data && (
+                            <>
+                                <Heading as="h2">Galeria</Heading>
+                                <Grid xs={12} mt={3} mb={3}>
+                                    <Carousel
+                                        height={500}
+                                        navButtonsAlwaysVisible={true}
+                                        stopAutoPlayOnHover={true}
+                                        duration={200}
+                                    >
+                                        {immobileData?.attributes?.Gallery[0]?.Image?.data?.map(
+                                            (
+                                                e: any,
+                                                i: React.Key | null | undefined
+                                            ) => (
+                                                <Grid
+                                                    key={i}
+                                                    xs={12}
+                                                    className="carousel"
+                                                    container
+                                                    alignItems="center"
+                                                    justifyContent="center"
+                                                >
+                                                    <Image
+                                                        src={`${e.attributes.url}`}
+                                                        width={
+                                                            e.attributes.width
+                                                        }
+                                                        height={
+                                                            e.attributes.height
+                                                        }
+                                                        alt="Imagem da galeria"
+                                                        layout="intrinsic"
+                                                    />
+                                                </Grid>
+                                            )
+                                        )}
+                                    </Carousel>
+                                </Grid>
+                            </>
+                        )}
                         <Heading as="h2">Detalhamento</Heading>
                         {immobileData.attributes.Immobile_post.Details}
                     </Grid>

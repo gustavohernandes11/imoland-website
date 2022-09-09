@@ -22,7 +22,7 @@ const Contato: NextPage = () => {
                 >
                     <Heading>Entre em contato conosco!</Heading>
                 </Grid>
-                <Grid mt={3} container xs={12} >
+                <Grid mt={3} container xs={12}>
                     <Grid
                         container
                         xs={12}
@@ -63,9 +63,8 @@ const Contato: NextPage = () => {
                         <Modal>
                             <CorporateFare width={25} height={25} />
                             <Heading as="h2">Endereço</Heading>
-                            <Typography>
-                                R. Alfredo Cunha 155 - Loja 1 - 4450-023
-                            </Typography>
+                            <Typography>R. Alfredo Cunha 155</Typography>
+                            <Typography>Loja 1 - 4450-023</Typography>
                             <Typography>Matosinhos, Portugal</Typography>
                         </Modal>
                     </Grid>

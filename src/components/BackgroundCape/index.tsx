@@ -1,6 +1,5 @@
 import * as Styled from "./styles";
-import Image from "next/image";
-
+import defaultImage from '../../assets/imgs/construction_concept.jpg'
 export interface BackgroundCapeType {
     justifyContent?: string;
     alignItems?: string;
@@ -12,7 +11,7 @@ export interface BackgroundCapeType {
 }
 
 export const BackgroundCape = ({
-    backgroundUrl,
+    backgroundUrl = defaultImage,
     height = 400,
     width,
     color,

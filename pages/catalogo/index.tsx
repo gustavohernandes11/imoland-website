@@ -10,9 +10,22 @@ import { useState } from "react";
 import { useGlobalContext } from "../../src/hooks/useGlobalContext";
 
 import { hostname } from "../../src/config";
-import apartamento from "../../src/assets/imgs/apartamento.webp";
 
-import { Button, Grid, Pagination, CircularProgress } from "@mui/material";
+import {
+    businessTypeValues,
+    immobileTypeValues,
+    countyValues,
+    districtValues,
+} from "../../src/utils/search-values";
+import {
+    Button,
+    Container,
+    Grid,
+    Pagination,
+    CircularProgress,
+    Typography,
+    Stack,
+} from "@mui/material";
 
 const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
     const [immobilePosts, setImmobilePosts] = useState(data);
@@ -69,8 +82,8 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
                 setmetaData(() => meta);
                 setImmobilePosts(() => data);
                 setLoading(() => false);
-            } catch (e) {
-                console.log("deu erro uai");
+            } catch {
+                return;
             }
         }
     };
@@ -100,26 +113,21 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
         <>
             <Header />
             <Section>
-                <Grid container mb={2} xs={12} justifyContent="space-between">
-                    <Heading>Catálogo de imóveis</Heading>
-                </Grid>
-                <Grid container direction="column">
-                    <Grid item xs={12}>
+                <Container disableGutters={true}>
+                    <Grid
+                        container
+                        mb={2}
+                        xs={12}
+                        justifyContent="space-between"
+                    >
+                        <Heading>Catálogo de imóveis</Heading>
+                    </Grid>
+                    <Grid item>
                         <SearchBox
-                            businessType={[
-                                "Venda",
-                                "Arrendamento",
-                                "Transpasse",
-                            ]}
-                            immobileType={[
-                                "Apartamento",
-                                "Casa",
-                                "Comercial",
-                                "Terreno",
-                                "Áreas",
-                            ]}
-                            // concelho={loadConcelhos()}
-                            // distrito={loadDistricts()}
+                            businessType={businessTypeValues}
+                            immobileType={immobileTypeValues}
+                            county={countyValues}
+                            district={districtValues}
                         />
                         <Grid container xs={12} mb={2}>
                             <Button
@@ -130,30 +138,32 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
                             </Button>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} spacing={2}>
+                    <Grid item spacing={2}>
                         {loading ? (
                             <Grid
                                 container
                                 xs={12}
                                 alignItems="center"
                                 justifyContent="center"
-                                mt={6}
-                                mb={6}
+                                mt={12}
+                                mb={12}
                             >
                                 <CircularProgress />
                             </Grid>
-                        ) : (
-                            immobilePosts &&
+                        ) : immobilePosts.length > 0 ? (
                             immobilePosts.map((e: any) => {
                                 return (
                                     <ImmobileModal
                                         key={e.id}
                                         row={true}
-                                        src={apartamento}
+                                        src={
+                                            e?.attributes?.Gallery[0]?.Cape
+                                                ?.data[0]?.attributes?.url
+                                        }
                                         alt={"Imagem da casa"}
                                         name={
-                                            !!e.attributes.Immobile_post.Name &&
-                                            e.attributes.Immobile_post.Name
+                                            
+                                            e?.attributes?.Immobile_post?.Name
                                         }
                                         slug={
                                             !!e.attributes.slug &&
@@ -203,26 +213,34 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
                                     />
                                 );
                             })
-                        )}
-
-                        <Grid
-                            container
-                            xs={12}
-                            mt={4}
-                            justifyContent="center"
-                            alignItems="center"
-                        >
-                            <Grid item>
-                                <Pagination
-                                    count={metaData.pagination.page}
-                                    page={currentPage}
-                                    onChange={(p) => loadPage(p)}
-                                    color="primary"
-                                />
+                        ) : (
+                            <Grid
+                                container
+                                xs={12}
+                                alignItems="center"
+                                justifyContent="center"
+                                mt={12}
+                                mb={12}
+                            >
+                                <p>Nenhum resultado.</p>
                             </Grid>
-                        </Grid>
+                        )}
                     </Grid>
-                </Grid>
+                    <Grid
+                        container
+                        xs={12}
+                        mt={4}
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Pagination
+                            count={metaData.pagination.page}
+                            page={currentPage}
+                            onChange={(p) => loadPage(p)}
+                            color="primary"
+                        />
+                    </Grid>
+                </Container>
             </Section>
 
             <Footer />

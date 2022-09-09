@@ -7,32 +7,29 @@ interface ContainerInterface {
     alignItems?: string;
     full?: boolean;
     height?: string | number;
-    backgroundUrl?: any;
 }
 
 export const Container = styled.section`
     ${({
         theme,
         color,
-        justifyContent = "unset",
-        alignItems = "unset",
+        justifyContent = "initial",
+        alignItems = "initial",
         full,
-        height = "unset",
-        backgroundUrl,
+        height = "initial",
     }: ContainerInterface) => css`
         color: ${theme.colors.text};
         padding: ${theme.spacings[14]};
         background-color: ${color ? color : theme.colors.background};
 
-        background-image: ${backgroundUrl ? `url(${backgroundUrl})` : "none"};
-        background-size: cover;
         
         display: flex;
         flex-direction: column;
         justify-content: ${justifyContent};
         align-items: ${alignItems};
-        height: ${height};
-        min-height: ${full == true ? `100vh` : `unset`};
+        ${height && `height: ${height}`};
+        ${full && `min-height: 100vh`};
+
 
         @media only screen and (max-width: 1200px) {
         padding: ${theme.spacings[8]} ${theme.spacings[4]};
@@ -40,8 +37,6 @@ export const Container = styled.section`
         @media only screen and (max-width: 600px) {
         padding: ${theme.spacings[4]};
         }
-
-
         }
 
     `}
