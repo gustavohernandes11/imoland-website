@@ -19,7 +19,7 @@ export const EmphasisSection = ({ data = [] }: any) => {
                             <ImmobileModal
                                 key={e.id}
                                 row={false}
-                                src={`${e.attributes.Gallery[0].Cape.data[0].attributes.url}`}
+                                src={`${e?.attributes?.Gallery[0]?.Cape?.data[0]?.attributes?.url}`}
                                 alt={"Imagem capa do post"}
                                 name={
                                     e.attributes.Immobile_post?.Name
