@@ -23,8 +23,6 @@ import {
     Grid,
     Pagination,
     CircularProgress,
-    Typography,
-    Stack,
 } from "@mui/material";
 
 const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
@@ -44,25 +42,31 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
         ) {
             try {
                 const url = `${hostname}/api/imoveis?populate[10]=deep${
-                    state.business_type_filter &&
-                    `&filters[Immobile_post][Business_type]=${state.business_type_filter}&`
+                    state.business_type_filter
+                        ? `&filters[Immobile_post][Business_type]=${state.business_type_filter}&`
+                        : ""
                 }${
-                    state.immobile_type_filter &&
-                    `&filters[Immobile_post][Immobile_type]=${state.immobile_type_filter}&`
+                    state.immobile_type_filter
+                        ? `&filters[Immobile_post][Immobile_type]=${state.immobile_type_filter}&`
+                        : ""
                 }${
-                    state.county_filter &&
-                    `&filters[Immobile_post][Concelho]=${state.county_filter}&`
+                    state.county_filter
+                        ? `&filters[Immobile_post][Concelho]=${state.county_filter}&`
+                        : ""
                 }${
-                    state.distric_filter &&
-                    `&filters[Immobile_post][District]=${state.distric_filter}&`
+                    state.distric_filter
+                        ? `&filters[Immobile_post][District]=${state.distric_filter}&`
+                        : ""
                 }`;
 
                 const res = await fetch(url);
                 const { data, meta } = await res.json();
 
+
                 if (!data) {
                     return {
                         data: [],
+                        meta: {},
                     };
                 } else {
                     setmetaData(() => meta);
@@ -70,6 +74,7 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
                     setLoading(() => false);
                 }
             } catch (e) {
+                setImmobilePosts(() => []);
                 setLoading(() => false);
             }
         } else {
@@ -77,9 +82,8 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
                 const res = await fetch(
                     `${hostname}/api/imoveis?pagination[page]=1&pagination[pageSize]=25&&populate=deep`
                 );
-                const { data, meta } = await res.json();
+                const { data } = await res.json();
 
-                setmetaData(() => meta);
                 setImmobilePosts(() => data);
                 setLoading(() => false);
             } catch {
@@ -104,9 +108,7 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
             setmetaData(meta);
             setImmobilePosts(data);
         } catch (e) {
-            return {
-                props: { data: [] },
-            };
+            return;
         }
     };
     return (
@@ -157,58 +159,40 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
                                         key={e.id}
                                         row={true}
                                         src={
-                                            e?.attributes?.Gallery[0]?.Cape
-                                                ?.data[0]?.attributes?.url
+                                            e?.attributes?.Gallery?.[0]?.Cape
+                                                ?.data?.[0]?.attributes?.url
                                         }
                                         alt={"Imagem da casa"}
                                         name={
-                                            
                                             e?.attributes?.Immobile_post?.Name
                                         }
-                                        slug={
-                                            !!e.attributes.slug &&
-                                            e.attributes.slug
-                                        }
+                                        slug={e?.attributes?.slug}
                                         price={
-                                            !!e.attributes.Immobile_post
-                                                .Price &&
-                                            e.attributes.Immobile_post.Price
+                                            e?.attributes?.Immobile_post?.Price
                                         }
                                         n_bathrooms={
-                                            !!e.attributes.Immobile_post
-                                                .Informations.N_Bathrooms &&
-                                            e.attributes.Immobile_post
-                                                .Informations.N_Bathrooms
+                                            e?.attributes?.Immobile_post
+                                                ?.Informations?.N_Bathrooms
                                         }
                                         n_bedrooms={
-                                            !!e.attributes.Immobile_post
-                                                .Informations.N_Bedrooms &&
-                                            e.attributes.Immobile_post
-                                                .Informations.N_Bedrooms
+                                            e?.attributes?.Immobile_post
+                                                ?.Informations?.N_Bedrooms
                                         }
                                         n_garbage={
-                                            !!e.attributes.Immobile_post
-                                                .Informations.N_Garage &&
-                                            e.attributes.Immobile_post
-                                                .Informations.N_Garage
+                                            e?.attributes?.Immobile_post
+                                                ?.Informations?.N_Garage
                                         }
                                         squareMeters={
-                                            !!e.attributes.Immobile_post
-                                                .Informations.Area &&
-                                            e.attributes.Immobile_post
-                                                .Informations.Area
+                                            e?.attributes?.Immobile_post
+                                                ?.Informations?.Area
                                         }
                                         location={
-                                            !!e.attributes.Immobile_post
-                                                .Localization &&
-                                            e.attributes.Immobile_post
-                                                .Localization
+                                            e?.attributes?.Immobile_post
+                                                ?.Localization
                                         }
                                         category={
-                                            !!e.attributes.Immobile_post
-                                                .Immobile_type &&
-                                            e.attributes.Immobile_post
-                                                .Immobile_type
+                                            e?.attributes?.Immobile_post
+                                                ?.Immobile_type
                                         }
                                     />
                                 );
@@ -236,7 +220,7 @@ const Catalogo: NextPage = ({ data = [], meta = {} }: any) => {
                         <Pagination
                             count={metaData.pagination.page}
                             page={currentPage}
-                            onChange={(p) => loadPage(p)}
+                            onChange={(p: any) => loadPage(p)}
                             color="primary"
                         />
                     </Grid>

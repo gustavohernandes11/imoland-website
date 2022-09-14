@@ -17,7 +17,7 @@
         "@emotion/styled": "^11.9.3",
         "@mui/material": "^5.9.1",
         "@styled-icons/boxicons-logos": "^10.38.0",
-        "@styled-icons/heroicons-outline": "^10.36.0",
+        "@styled-icons/heroicons-outline": "^10.46.0",
         "@styled-icons/material": "^10.34.0",
         "jest-styled-components": "^7.0.8",
         "next": "12.2.2",
